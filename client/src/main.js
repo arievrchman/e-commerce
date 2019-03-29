@@ -7,7 +7,7 @@ import router from './router';
 Vue.config.productionTip = false;
 
 Vue.prototype.axios = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://secrets.arievrachman.xyz/',
 });
 
 Vue.use(VeeValidate);

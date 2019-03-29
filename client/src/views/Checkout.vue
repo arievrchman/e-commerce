@@ -160,7 +160,7 @@ export default {
       this.$validator
         .validateAll()
         .then(() => {
-          this.axios({
+          return this.axios({
             method: 'post',
             url: '/checkout',
             data: {
@@ -169,14 +169,14 @@ export default {
             },
             headers: { token: localStorage.getItem('token') },
           })
-            .then(({ data }) => {
+          .then(({ data }) => {
               console.log(data);
               this.$emit('clear-cart');
               this.$emit('fetch-trans');
             })
-            .catch((err) => {
-              console.log(err);
-            });
+          .catch((err) => {
+            console.log(err);
+          });
         });
     },
   },
