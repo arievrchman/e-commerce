@@ -32,7 +32,7 @@
             <label>Catalog</label>
             <select class="custom-select" v-model="product.catalog">
               <option>Men</option>
-              <option>Women</option>              
+              <option>Women</option>
             </select>
           </div>
         </div>
@@ -81,10 +81,10 @@
 
 <script>
 
-$(document).ready(function(){
-  $('#customFile').on('change',function(){
-      var fileName = $(this).val().replace('C:\\fakepath\\', " ");
-      $(this).next('.custom-file-label').html(fileName);
+$(document).ready(() => {
+  $('#customFile').on('change', function () {
+    const fileName = $(this).val().replace('C:\\fakepath\\', ' ');
+    $(this).next('.custom-file-label').html(fileName);
   });
 });
 
@@ -102,13 +102,12 @@ export default {
       },
       successText: '',
       errText: '',
-    }
+    };
   },
   methods: {
     editProduct() {
-
-      let id = this.$route.params.id
-      let data = new FormData();
+      const { id } = this.$route.params;
+      const data = new FormData();
       data.append('product_name', this.product.product_name);
       data.append('catalog', this.product.catalog);
       data.append('description', this.product.description);
@@ -118,8 +117,8 @@ export default {
 
       this.axios({
         method: 'put',
-        url: '/products/' + id,
-        data
+        url: `/products/${id}`,
+        data,
       })
         .then(({ data }) => {
           this.$emit('edit-product', data.product);
@@ -132,30 +131,28 @@ export default {
           this.product.image = '';
         })
         .catch((err) => {
-          let error = err.response.data;
+          const error = err.response.data;
           let customErr = [];
-          for (let key in error) {
+          for (const key in error) {
             if (Object.values(error).length > 1) {
               customErr.push(error[key].message);
             } else {
               customErr += error[key].message;
             }
           }
-          if (typeof customErr == 'string') {
+          if (typeof customErr === 'string') {
             this.errText = customErr;
           } else {
             this.errText = customErr.join(', ');
           }
         });
-      
     },
-    imageUpload() {      
+    imageUpload() {
       this.product.image = this.$refs.image.files[0];
     },
 
     addProduct() {
-      
-      let data = new FormData();
+      const data = new FormData();
       data.append('product_name', this.product.product_name);
       data.append('catalog', this.product.catalog);
       data.append('description', this.product.description);
@@ -166,7 +163,7 @@ export default {
       this.axios({
         method: 'post',
         url: '/products',
-        data
+        data,
       })
         .then(({ data }) => {
           this.$emit('add-product', data.product);
@@ -179,12 +176,12 @@ export default {
           this.product.image = '';
         })
         .catch((err) => {
-          let error = err.response.data;
+          const error = err.response.data;
           let customErr = [];
           if (error.hasOwnProperty('message')) {
             customErr = error.message;
           } else {
-            for (let key in error) {
+            for (const key in error) {
               if (Object.values(error).length > 1) {
                 customErr.push(error[key]);
               } else {
@@ -192,22 +189,22 @@ export default {
               }
             }
           }
-          if (typeof customErr == 'string') {
+          if (typeof customErr === 'string') {
             this.errText = customErr;
           } else {
             this.errText = customErr.join(', ');
           }
         });
-    }
+    },
   },
   watch: {
     currentProduct(val) {
       if (this.isEdit) {
         this.product = val;
       }
-    }
+    },
   },
-}
+};
 </script>
 
 <style>
@@ -238,4 +235,3 @@ export default {
   padding: 10px;
 }
 </style>
-

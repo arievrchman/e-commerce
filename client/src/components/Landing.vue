@@ -60,7 +60,7 @@ export default {
   methods: {
     addToCart(product) {
       this.$emit('add-to-cart', product);
-    }
+    },
   },
 };
 </script>

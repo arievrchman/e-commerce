@@ -7,40 +7,40 @@
 </template>
 
 <script>
-import FormProduct from "@/components/FormProduct.vue";
+import FormProduct from '@/components/FormProduct.vue';
 
 export default {
   components: {
-    FormProduct
+    FormProduct,
   },
   data() {
     return {
       currentProduct: {},
-    }
+    };
   },
   mounted() {
-    let id = this.$route.params.id;
+    const { id } = this.$route.params;
     this.axios({
       method: 'get',
-      url: '/products/' + id
+      url: `/products/${id}`,
     })
       .then(({ data }) => {
         this.currentProduct = data;
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   },
   methods: {
     editProduct(payload) {
       this.$emit('edit-product', payload);
-    }
+    },
   },
   computed: {
     product() {
       return this.currentProduct;
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -60,7 +60,7 @@ export default {
       email: '',
       password: '',
       errText: '',
-    }
+    };
   },
   methods: {
     login() {
@@ -70,21 +70,20 @@ export default {
         data: {
           email: this.email,
           password: this.password,
-        }
+        },
       })
-        .then(({data}) => {
+        .then(({ data }) => {
           console.log(data.token);
           this.email = '';
           this.password = '';
           localStorage.setItem('token', data.token);
           this.$emit('success-login');
           this.$router.replace({ path: '/' });
-          
         })
         .catch((err) => {
-          this.errText = err.response.data.message
+          this.errText = err.response.data.message;
         });
-    }
+    },
   },
 };
 </script>

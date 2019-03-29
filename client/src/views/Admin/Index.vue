@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       products: [],
-    }
+    };
   },
   methods: {
     addProduct(payload) {
@@ -54,7 +54,7 @@ export default {
     },
     editProduct(payload) {
       this.$emit('edit-product', payload);
-    }
+    },
   },
 };
 </script>

@@ -15,12 +15,12 @@ export default {
   name: 'home',
   props: ['getProducts'],
   components: {
-  Landing,    
+    Landing,
   },
   methods: {
     addToCart(payload) {
       this.$emit('add-to-cart', payload);
-    }
+    },
   },
 };
 </script>
@@ -28,4 +28,3 @@ export default {
 <style scoped>
 
 </style>
-

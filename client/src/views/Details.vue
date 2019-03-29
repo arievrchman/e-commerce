@@ -38,26 +38,26 @@ export default {
   props: [],
   data() {
     return {
-      product: {}
+      product: {},
     };
   },
   mounted() {
-    let id = this.$route.params.id;
+    const { id } = this.$route.params;
     this.axios({
       method: 'get',
-      url: '/products/' + id
+      url: `/products/${id}`,
     })
       .then(({ data }) => {
         this.product = data;
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   },
   methods: {
     addToCart(product) {
       this.$emit('add-to-cart', product);
-    }
+    },
   },
 };
 </script>

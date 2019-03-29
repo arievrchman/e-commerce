@@ -16,6 +16,8 @@
       @remove-from-carts="cart = $event"
       :current-user="currentUser"
       :transactions-ht="transactions"
+      @clear-cart="cart = []"
+      @fetch-trans="findAllTransaction"
     />
   </div>
 </template>
@@ -37,10 +39,10 @@ export default {
       allProducts: [],
       currentUser: {
         name: '',
-        id: null
+        id: null,
       },
       transactions: [],
-    }
+    };
   },
   created() {
     if (localStorage.getItem('token')) {
@@ -55,13 +57,13 @@ export default {
       this.axios({
         method: 'get',
         url: '/auth',
-        headers: { token: localStorage.getItem('token') }
+        headers: { token: localStorage.getItem('token') },
       })
         .then(({ data }) => {
-          let user = {
+          const user = {
             id: data._id,
-            name: data.name
-          }
+            name: data.name,
+          };
           this.currentUser = user;
           this.checkPoint.isLogin = true;
           if (data.role === 'admin') {
@@ -81,12 +83,12 @@ export default {
     getAllProducts() {
       this.axios({
         method: 'get',
-        url: '/products'
+        url: '/products',
       })
         .then(({ data }) => {
           this.allProducts = data;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err.response);
         });
     },
@@ -94,23 +96,19 @@ export default {
       this.allProducts.unshift(payload);
     },
     removeTheProduct(payload) {
-      let removed = this.allProducts.filter(product => {
-        return product._id !== payload;
-      })
+      const removed = this.allProducts.filter(product => product._id !== payload);
       this.allProducts = removed;
     },
     updateProduct(payload) {
-      let updatedObj = this.allProducts.find(product => {
-        return product._id == payload._id;
-      });
+      const updatedObj = this.allProducts.find(product => product._id == payload._id);
       Object.assign(updatedObj, payload);
     },
 
     addToCart(payload) {
       this.axios({
         method: 'patch',
-        url: '/users/cart/' + payload._id + '/add',
-        headers: { token: localStorage.getItem('token') }
+        url: `/users/cart/${payload._id}/add`,
+        headers: { token: localStorage.getItem('token') },
       })
         .then(({ data }) => {
           this.cart = data;
@@ -124,13 +122,13 @@ export default {
       this.axios({
         method: 'get',
         url: '/users/cart',
-        headers: { token: localStorage.getItem('token') }
+        headers: { token: localStorage.getItem('token') },
       })
         .then(({ data }) => {
           this.cart = data.shopping_cart;
         })
         .catch((err) => {
-          console.log(err);  
+          console.log(err);
         });
     },
 
@@ -138,7 +136,7 @@ export default {
       this.axios({
         method: 'get',
         url: '/checkout',
-        headers: { token: localStorage.getItem('token') }
+        headers: { token: localStorage.getItem('token') },
       })
         .then(({ data }) => {
           this.transactions = data;
@@ -146,7 +144,7 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-    }
+    },
   },
   computed: {
     products() {
@@ -154,7 +152,7 @@ export default {
     },
     getCarts() {
       return this.cart;
-    }
+    },
   },
 };
 </script>

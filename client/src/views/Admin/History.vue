@@ -26,15 +26,14 @@
 
 <script>
 export default {
-  props: ["transactions"],
+  props: ['transactions'],
   methods: {
     checkStatus(status) {
       if (!status) {
-        return 'Uncomplete'
-      } else {
-        return 'Complete'
+        return 'Uncomplete';
       }
-    }
+      return 'Complete';
+    },
   },
 };
 </script>

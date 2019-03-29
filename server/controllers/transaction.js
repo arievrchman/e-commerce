@@ -7,7 +7,7 @@ module.exports = {
       let findUserCart = await User
         .findById(req.auth_user.id)
         .populate('shopping_cart')
-      
+
       let userCart = findUserCart.shopping_cart.map(elem => {
         let objCart = {
           id: elem.id,
@@ -38,7 +38,7 @@ module.exports = {
   },
   async findTransaction(req, res) {
     try {
-      let findAll = await Transaction.find({}).populate('user')
+      let findAll = await Transaction.find({ user: req.auth_user.id }).populate('user')
       let transaction = findAll.map(elem => {
         let objTrans = {
           id: elem._id,
@@ -55,6 +55,18 @@ module.exports = {
         return objTrans
       });
       res.json(transaction);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+  async updateTransaction(req, res) {
+    try {
+      let transaction = await Transaction.findByIdAndUpdate(req.params.id, { shipped: true }, { new: true, runValidators: true });
+      if (transaction) {
+        res.json(transaction)
+      } else {
+        res.status({ message: 'Transactions not found' });
+      }
     } catch (error) {
       res.status(500).json(error);
     }

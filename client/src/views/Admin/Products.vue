@@ -43,21 +43,21 @@ export default {
   data() {
     return {
       successText: '',
-    }
+    };
   },
   methods: {
     deleteProduct(id) {
       this.axios({
         method: 'delete',
-        url: '/products/' + id
+        url: `/products/${id}`,
       })
-      .then(({data}) => {
-        this.$emit('remove-product', id);
-        this.successText = data.message;
-      })
-      .catch(err => {
-        console.log(err);
-      });
+        .then(({ data }) => {
+          this.$emit('remove-product', id);
+          this.successText = data.message;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

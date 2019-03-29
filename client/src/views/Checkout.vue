@@ -135,49 +135,49 @@ export default {
       city: '',
       state: '',
       zipcode: '',
-      total: 0
-    }
+      total: 0,
+    };
   },
   methods: {
     countPrice(data) {
       let count = 0;
-      data.forEach(e => {
+      data.forEach((e) => {
         count += e.price;
       });
       this.total = count;
       return count;
     },
-    checkout() {      
-      let newTransaction = {
+    checkout() {
+      const newTransaction = {
         email: this.email,
         fname: this.fname,
         lname: this.lname,
         address: this.address,
         city: this.city,
         state: this.state,
-        zipcode: this.zipcode
+        zipcode: this.zipcode,
       };
       this.$validator
         .validateAll()
         .then(() => {
           this.axios({
-          method: 'post',
-          url: '/checkout',
-          data: {
-            contactInformation: newTransaction,
-            total: this.total
-          },
-          headers: { token: localStorage.getItem('token') }
+            method: 'post',
+            url: '/checkout',
+            data: {
+              contactInformation: newTransaction,
+              total: this.total,
+            },
+            headers: { token: localStorage.getItem('token') },
           })
             .then(({ data }) => {
-              // console.log(data);
-              this.$emit('remove-cart');
+              console.log(data);
+              this.$emit('clear-cart');
+              this.$emit('fetch-trans');
             })
-            .catch(err => {
+            .catch((err) => {
               console.log(err);
             });
         });
-    
     },
   },
 };

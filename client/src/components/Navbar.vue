@@ -67,6 +67,11 @@
                   <a class="dropdown-item"><small>Dashboard</small></a>
                 </router-link>
               </div>
+              <div v-else>
+                <router-link to="/transactions">
+                  <a class="dropdown-item"><small>Transactions</small></a>
+                </router-link>
+              </div>
               <a class="dropdown-item" @click.prevent="logout"><small>Logout</small></a>
             </div>
           </li>
@@ -78,7 +83,7 @@
               </span>
             </router-link>
           </li>
-          
+
           <li class="nav-item">
             <router-link to="/cart">
               <a href class="nav-link">
@@ -99,14 +104,15 @@ export default {
   props: ['status', 'myCart'],
   data() {
     return {
-      loggedIn: null
+      loggedIn: null,
     };
   },
   methods: {
     logout() {
       localStorage.removeItem('token');
       this.$emit('logged-out');
-    }
+      this.$router.replace('/');
+    },
   },
 };
 </script>

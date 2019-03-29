@@ -76,7 +76,7 @@ export default {
       password: '',
       errText: '',
       successText: '',
-    }
+    };
   },
   methods: {
     register() {
@@ -86,8 +86,8 @@ export default {
         data: {
           name: this.name,
           email: this.email,
-          password: this.password
-        }
+          password: this.password,
+        },
       })
         .then(({ data }) => {
           this.successText = data.message;
@@ -96,16 +96,16 @@ export default {
           this.password = '';
         })
         .catch((err) => {
-          let error = err.response.data;
+          const error = err.response.data;
           if (error.hasOwnProperty('email')) {
-            this.errText = error.email
+            this.errText = error.email;
           } else if (error.hasOwnProperty('password')) {
-            this.errText = error.password
+            this.errText = error.password;
           } else {
-            this.errText = error.message
+            this.errText = error.message;
           }
         });
-    }
+    },
   },
 };
 </script>

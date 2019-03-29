@@ -11,7 +11,7 @@ const cartsRouter = require('./routes/carts');
 const productsRouter = require('./routes/products');
 const transactionRouter = require('./routes/transaction');
 
-let db_connection = process.env.DB;
+let db_connection = 'mongodb://localhost/secrets_dev';
 
 if (process.env.NODE_ENV == 'test') {
   db_connection = 'mongodb://localhost/boldcommerce-test';

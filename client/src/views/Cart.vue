@@ -47,12 +47,12 @@ export default {
   data() {
     return {
       total: 0,
-    }
+    };
   },
   methods: {
     countPrice(data) {
       let count = 0;
-      data.forEach(e => {
+      data.forEach((e) => {
         count += e.price;
       });
       this.total = count;
@@ -61,8 +61,8 @@ export default {
     removeFromCart(id) {
       this.axios({
         method: 'patch',
-        url: '/users/cart/' + id + '/remove',
-        headers: { token: localStorage.getItem('token') }
+        url: `/users/cart/${id}/remove`,
+        headers: { token: localStorage.getItem('token') },
       })
         .then(({ data }) => {
           // console.log(data);
@@ -73,7 +73,7 @@ export default {
         });
     },
   },
-  
+
 };
 </script>
 
@@ -94,7 +94,7 @@ export default {
 .container button {
   text-transform: uppercase;
   font-size: 15px;
-  font-family: cursive;  
+  font-family: cursive;
   padding: 10px;
 }
 
